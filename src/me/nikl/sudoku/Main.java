@@ -23,10 +23,10 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -71,7 +71,6 @@ public class Main extends JavaPlugin{
 
         hook();
         if (disabled) return;
-
     }
 
 
@@ -156,6 +155,8 @@ public class Main extends JavaPlugin{
             double cost;
             boolean saveStats;
 
+            int token, money;
+
             String displayName;
             ArrayList<String> lore;
 
@@ -203,8 +204,10 @@ public class Main extends JavaPlugin{
                 cost = buttonSec.getDouble("cost", 0.);
                 saveStats = buttonSec.getBoolean("saveStats", false);
 
+                token = buttonSec.getInt("token", 0);
+                money = buttonSec.getInt("money", 0);
 
-                rules = new GameRules(this, buttonID, cost, saveStats);
+                rules = new GameRules(buttonID, cost, money, token, saveStats);
 
                 setTheButton:
                 if (buttonSec.isInt("slot")) {
