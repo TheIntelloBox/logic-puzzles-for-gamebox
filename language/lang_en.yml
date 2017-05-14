@@ -11,18 +11,12 @@ game:
     wonMoney: " &2You reached a score of &6%score%&2 and won &6%reward%&2!"
   gameOverNoPay: " &2You reached a score of &6%score%"
   inventoryTitles:
-    gameTitle: "&92048             Score: %score%"
+    gameTitle: "&9Sudoku             "
     lost: "&92048    &4Game Over  &9Score: %score%"
-  buttons:
-    up: '&3Up'
-    down: '&3Down'
-    right: '&3Right'
-    left: '&3Left'
 
 
-
-prefix: "[&32048&r]"
-name: "&12048&r"
+prefix: "[&3Sudoku&r]"
+name: "&1Sudoku&r"
 
 gameHelp:
   - '&1&lMove all tiles in a direction by clicking'
