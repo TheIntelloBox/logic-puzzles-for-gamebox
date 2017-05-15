@@ -94,12 +94,22 @@ public class GameManager implements IGameManager {
             coverItem = ItemStackUtil.getItemStack(items.getString(i + "." + "cover" + ".materialData", "STAINED_GLASS_PANE"));
             numberItem = ItemStackUtil.getItemStack(items.getString(i + "." + "number" + ".materialData", "WOOL"));
 
-            if(tipItem == null) tipItem = new ItemStack(Material.HARD_CLAY, 1);
+
+            if(tipItem == null){
+                tipItem = new ItemStack(Material.HARD_CLAY, 1);
+                Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + i + "." + "tip" + ".materialData" + " not valid material");
+            }
 
 
-            if(coverItem == null) coverItem = new ItemStack(Material.STAINED_GLASS_PANE, 1);
+            if(coverItem == null){
+                coverItem = new ItemStack(Material.STAINED_GLASS_PANE, 1);
+                Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + i + "." + "cover" + ".materialData" + " not valid material");
+            }
 
-            if(numberItem == null) numberItem = new ItemStack(Material.WOOL, 1);
+            if(numberItem == null){
+                numberItem = new ItemStack(Material.WOOL, 1);
+                Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + i + "." + "number" + ".materialData" + " not valid material");
+            }
 
             ItemMeta meta = tipItem.getItemMeta();
             meta.setDisplayName(GameBox.chatColor(items.getString(i + "." + "tip" + ".displayName", "&l&n" + i)));
@@ -122,7 +132,10 @@ public class GameManager implements IGameManager {
 
     @Override
     public boolean onInventoryClick(InventoryClickEvent inventoryClickEvent) {
-        // ToDo
+        Game game = games.get(inventoryClickEvent.getWhoClicked().getUniqueId());
+        if(game == null) return false;
+
+        game.onClick(inventoryClickEvent);
 
         return true;
     }
