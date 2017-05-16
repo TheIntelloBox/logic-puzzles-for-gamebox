@@ -6,13 +6,14 @@ game:
   econ:
     # use %cost% for the amount payed
     payed: " &2You paid &4%cost%"
-    notEnoughMoney: " &4You do not have not enough money!"
+    notEnoughMoney: " &4You do not have enough money!"
     # use %reward% for the amount the player won
-    wonMoney: " &2You reached a score of &6%score%&2 and won &6%reward%&2!"
+    wonMoney: " &2You won &6Sudoku&2 and got &6%reward%&2!"
   gameOverNoPay: " &2You reached a score of &6%score%"
   inventoryTitles:
     gameTitle: "&9Sudoku             "
-    lost: "&92048    &4Game Over  &9Score: %score%"
+    won: "&9Sudoku              &2You won!"
+  won: " &2You solved a &6Sudoku&2 puzzle."
 
 
 prefix: "[&3Sudoku&r]"
