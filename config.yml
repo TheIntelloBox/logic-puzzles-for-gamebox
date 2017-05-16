@@ -69,8 +69,6 @@ items:
   #   tip items are used for the already given numbers at the beginning of the game
   #   number items are used for the player input
 
-  # normal and tip need to be different items (at least different display names)
-
   # the grid is divided in 9 3x3 fields like this
 
   #    1   2   3
@@ -83,36 +81,6 @@ items:
   grid:
     '1':
       cover:
-        materialData: "160:1"
-        displayName: "&6"
-      tip:
-        materialData: "159:1"
-        displayName: "&6&l&n%value%"
-      number:
-        materialData: "35:1"
-        displayName: "&6%value%"
-    '2':
-      cover:
-        materialData: "160:2"
-        displayName: "&d"
-      tip:
-        materialData: "159:2"
-        displayName: "&d&l&n%value%"
-      number:
-        materialData: "35:2"
-        displayName: "&d%value%"
-    '3':
-      cover:
-        materialData: "160:12"
-        displayName: "&7"
-      tip:
-        materialData: "159:12"
-        displayName: "&7&l&n%value%"
-      number:
-        materialData: "35:12"
-        displayName: "&7%value%"
-    '4':
-      cover:
         materialData: "160:11"
         displayName: "&1"
       tip:
@@ -121,7 +89,7 @@ items:
       number:
         materialData: "35:11"
         displayName: "&1%value%"
-    '5':
+    '2':
       cover:
         materialData: "160"
         displayName: "&f"
@@ -131,43 +99,73 @@ items:
       number:
         materialData: "35"
         displayName: "&f%value%"
+    '3':
+      cover:
+        materialData: "160:11"
+        displayName: "&1"
+      tip:
+        materialData: "159:11"
+        displayName: "&1&l&n%value%"
+      number:
+        materialData: "35:11"
+        displayName: "&1%value%"
+    '4':
+      cover:
+        materialData: "160"
+        displayName: "&f"
+      tip:
+        materialData: "159"
+        displayName: "&f&l&n%value%"
+      number:
+        materialData: "35"
+        displayName: "&f%value%"
+    '5':
+      cover:
+        materialData: "160:11"
+        displayName: "&1"
+      tip:
+        materialData: "159:11"
+        displayName: "&1&l&n%value%"
+      number:
+        materialData: "35:11"
+        displayName: "&1%value%"
     '6':
       cover:
-        materialData: "160:9"
-        displayName: "&3"
+        materialData: "160"
+        displayName: "&f"
       tip:
-        materialData: "159:9"
-        displayName: "&3&l&n%value%"
+        materialData: "159"
+        displayName: "&f&l&n%value%"
       number:
-        materialData: "35:9"
-        displayName: "&3%value%"
+        materialData: "35"
+        displayName: "&f%value%"
     '7':
       cover:
-        materialData: "160:4"
-        displayName: "&e"
+        materialData: "160:11"
+        displayName: "&1"
       tip:
-        materialData: "159:4"
-        displayName: "&e&l&n%value%"
+        materialData: "159:11"
+        displayName: "&1&l&n%value%"
       number:
-        materialData: "35:4"
-        displayName: "&e%value%"
+        materialData: "35:11"
+        displayName: "&1%value%"
     '8':
       cover:
-        materialData: "160:14"
-        displayName: "&c"
+        materialData: "160"
+        displayName: "&f"
       tip:
-        materialData: "159:14"
-        displayName: "&c&l&n%value%"
+        materialData: "159"
+        displayName: "&f&l&n%value%"
       number:
-        materialData: "35:14"
-        displayName: "&c%value%"
+        materialData: "35"
+        displayName: "&f%value%"
     '9':
       cover:
-        materialData: "160:13"
-        displayName: "&2"
+        materialData: "160:11"
+        displayName: "&1"
       tip:
-        materialData: "159:13"
-        displayName: "&2&l&n%value%"
+        materialData: "159:11"
+        displayName: "&1&l&n%value%"
       number:
-        materialData: "35:13"
-        displayName: "&2%value%"
+        materialData: "35:11"
+        displayName: "&1%value%"
