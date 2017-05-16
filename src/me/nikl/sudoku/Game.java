@@ -1,7 +1,9 @@
 package me.nikl.sudoku;
 
+import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Sounds;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -21,15 +23,15 @@ public class Game {
 
     private Main plugin;
 
-    private GameRules rule;
-    private boolean playSounds;
+    private String ruleKey;
+    private boolean playSounds, wasWon = false;
     private Language lang;
 
     private Inventory inventory;
 
     private Player player;
 
-    private Sounds gameOver = Sounds.ANVIL_LAND;
+    private Sounds won = Sounds.VILLAGER_YES, click = Sounds.CLICK;
 
     private float volume = 0.5f, pitch= 1f;
 
@@ -44,12 +46,18 @@ public class Game {
 
     private BitSet tips = new BitSet(81);
 
+    private ItemStack resetButton;
+
+    private String puzzle;
+
 
     public Game(GameRules rule, Main plugin, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
         this.plugin = plugin;
         this.lang = plugin.lang;
-        this.rule = rule;
+        this.ruleKey = rule.getKey();
         this.player = player;
+
+        this.puzzle = puzzle;
 
         this.cover = cover;
         this.tip = tip;
@@ -62,9 +70,16 @@ public class Game {
         // create inventory
         this.inventory = Bukkit.createInventory(null, 81, lang.GAME_TITLE.replace("%score%", String.valueOf(score)));
 
-        buildStartingGrid(puzzle);
+        buildStartingGrid();
 
         player.openInventory(inventory);
+
+        resetButton = new ItemStack(Material.LEVER);
+        ItemMeta meta = resetButton.getItemMeta();
+        meta.setDisplayName(GameBox.chatColor("&c&lRestart"));
+        resetButton.setItemMeta(meta);
+
+        player.getInventory().setItem(22, resetButton);
     }
 
     private void loadNumberTiles(Map<Integer, ItemStack> number) {
@@ -84,7 +99,7 @@ public class Game {
         }
     }
 
-    private void buildStartingGrid(String puzzle) {
+    private void buildStartingGrid() {
         int x,y, valueInt;
         char value;
         ItemStack tip;
@@ -106,7 +121,7 @@ public class Game {
             }
 
             tips.set(slot);
-            gridNumbers[slot] = value;
+            gridNumbers[slot] = valueInt;
 
             tip = this.tip.get(y*3 + x).clone();
             meta = tip.getItemMeta();
@@ -154,6 +169,17 @@ public class Game {
     public void onClick(InventoryClickEvent inventoryClickEvent) {
         if(inventoryClickEvent.getCurrentItem() == null) return;
 
+        if(wasWon) return;
+
+        if(inventoryClickEvent.getRawSlot() > 81){
+            if(inventoryClickEvent.getCurrentItem().isSimilar(resetButton)){
+                gridNumbers = new int[81];
+                buildStartingGrid();
+                if(playSounds)player.playSound(player.getLocation(), Sounds.BURP.bukkitSound(), volume, pitch);
+            }
+            return;
+        }
+
         int slot = inventoryClickEvent.getSlot();
 
         // if the bit set is set for the slot it is a tip
@@ -170,6 +196,7 @@ public class Game {
                 gridNumbers[slot] = 0;
                 inventory.setItem(slot, cover.get(y * 3 + x + 1));
             }
+            if(playSounds)player.playSound(player.getLocation(), click.bukkitSound(), volume, pitch);
         } else if (inventoryClickEvent.getAction() == InventoryAction.PICKUP_HALF){
             if (gridNumbers[slot] == 0) {
                 inventory.setItem(slot, numberTiles[y * 3 + x][8]);
@@ -181,12 +208,17 @@ public class Game {
                 gridNumbers[slot] --;
                 inventory.setItem(slot, numberTiles[y * 3 + x][gridNumbers[slot] - 1]);
             }
+            if(playSounds)player.playSound(player.getLocation(), click.bukkitSound(), volume, pitch);
         } else {
             return;
         }
 
         if (isWon()){
-            Bukkit.getConsoleSender().sendMessage("Game Won!");
+            wasWon = true;
+            if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
+            if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
+            plugin.getGameManager().onGameEnd(player, ruleKey);
+            plugin.getNms().updateInventoryTitle(player, lang.GAME_TITLE_WON);
         }
     }
 }
