@@ -1,6 +1,6 @@
 name: Sudoku
 author: Nikl
 main: me.nikl.sudoku.Main
-version: 0.0.1
+version: 1.0.0
 website: nikl.me
 depend: [GameBox]
