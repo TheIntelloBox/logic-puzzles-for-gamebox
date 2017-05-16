@@ -2,6 +2,7 @@ package me.nikl.sudoku;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Permissions;
+import me.nikl.gamebox.data.SaveType;
 import me.nikl.gamebox.data.Statistics;
 import me.nikl.gamebox.game.IGameManager;
 import me.nikl.gamebox.util.ItemStackUtil;
@@ -218,7 +219,26 @@ public class GameManager implements IGameManager {
         }
     }
 
-    public Statistics getStatistics() {
-        return statistics;
+    public void onGameEnd(Player winner, String key) {
+
+        GameRules rule = gameTypes.get(key);
+
+        if(plugin.isEconEnabled()){
+            if(!winner.hasPermission(Permissions.BYPASS_ALL.getPermission()) && !winner.hasPermission(Permissions.BYPASS_GAME.getPermission(Main.gameID))){
+                Main.econ.depositPlayer(winner, rule.getReward());
+                winner.sendMessage((lang.PREFIX + lang.GAME_WON_MONEY.replaceAll("%reward%", rule.getReward()+"")));
+            } else {
+                winner.sendMessage((lang.PREFIX + lang.GAME_WON));
+            }
+        } else {
+            winner.sendMessage((lang.PREFIX + lang.GAME_WON));
+        }
+
+        if(rule.isSaveStats()){
+            plugin.gameBox.getStatistics().addStatistics(winner.getUniqueId(), Main.gameID, key, 1., SaveType.WINS);
+        }
+        if(rule.getTokens() > 0){
+            plugin.gameBox.wonTokens(winner.getUniqueId(), rule.getTokens(), Main.gameID);
+        }
     }
 }
