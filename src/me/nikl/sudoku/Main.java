@@ -50,7 +50,7 @@ public class Main extends JavaPlugin{
     };
 
     private final String[] subCommands = new String[]{"ex1", "ex2"};
-    private final SaveType topListSaveType = SaveType.SCORE;
+    private final SaveType topListSaveType = SaveType.WINS;
     private final int playerNum = 1;
 
     GameBox gameBox;
