@@ -13,7 +13,7 @@ public class Language {
 	private Main plugin;
 	private FileConfiguration langFile;
 	
-	public String PREFIX = "[WhacAMole]", NAME = "&1WhacAMole&r";
+	public String PREFIX = "[&3Sudoku&r]", NAME = "&1Sudoku&r";
 	public List<String> GAME_HELP;
 	private YamlConfiguration defaultLang;
 
