@@ -8,8 +8,7 @@ game:
     payed: " &2You paid &4%cost%"
     notEnoughMoney: " &4You do not have enough money!"
     # use %reward% for the amount the player won
-    wonMoney: " &2You won &6Sudoku&2 and got &6%reward%&2!"
-  gameOverNoPay: " &2You reached a score of &6%score%"
+    wonMoney: " &2You won &6Sudoku&2 and got payed &6%reward%&2!"
   inventoryTitles:
     gameTitle: "&9Sudoku             "
     won: "&9Sudoku              &2You won!"
@@ -20,14 +19,16 @@ prefix: "[&3Sudoku&r]"
 name: "&1Sudoku&r"
 
 gameHelp:
-  - '&1&lMove all tiles in a direction by clicking'
-  - '  &1&lone of the navigation buttons'
-  - '&1&lTiles slide as far as possible in the chosen'
-  - '  &1&ldirection until they are stopped by either'
-  - '  &1&lanother tile or the edge of the grid.'
-  - '&1&lIf two tiles of the same number collide while'
-  - '  &1&lmoving, they merge into a tile with the'
-  - '  &1&ltotal value of the two tiles that collided.'
-  - '&1&lEvery turn a new tile with a value of '
-  - '  &1&ltwo or four will randomly appear'
-  - '  &1&lin an empty slot on the board.'
+  - '&1&lSudoku is a logic game player on a 9x9 grid.'
+  - '&1&lThe grid is divided into 9 3x3 grids.'
+  - ''
+  - '&1&lTo win there have to be all numbers from 1 to 9'
+  - '  &1&lin each row, column and 3x3 grid'
+  - '&1&lAt the start of the game some numbers are set.'
+  - '  &1&lWith logic you have to find the other numbers.'
+  - '  &1&lLeft-click raises the value by one,'
+  - '  &1&lright-click lowers it by one.'
+  - ''
+  - '&1&lIf you messed up and would like to restart,'
+  - '  &1&lpress the restart button in your'
+  - '  &1&llower inventory.'
