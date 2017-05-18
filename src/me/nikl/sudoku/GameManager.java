@@ -173,22 +173,35 @@ public class GameManager implements IGameManager {
             return GameBox.GAME_NOT_STARTED_ERROR;
         }
 
-        if (problemWhileLoading || !pay(players, rule.getCost())) {
-            return GameBox.GAME_NOT_ENOUGH_MONEY;
-        }
+        String puzzle = null;
 
-        String puzzle;
+        // for time out reasons when someone dumb messed with the puzzles file
+        int count = 0;
+
         try {
-            raf.seek(random.nextInt(1465) * 83);
-            puzzle = raf.readLine();
-            games.put(players[0].getUniqueId(), new Game(rule, plugin, players[0], playSounds, puzzle, cover, tip, number));
-            return GameBox.GAME_STARTED;
+            while (puzzle == null || !(puzzle.toCharArray().length >= 81)) {
+                if(count > 20){
+                    Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Didn't the config tell you to not mess with the number of rows in the puzzles file?");
+                    Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Delete the changed file and reload. At the moment sometimes playing is not possible. There are not enough games!");
+                    return GameBox.GAME_NOT_STARTED_ERROR;
+                }
+                count ++;
+                raf.seek(random.nextInt(2000) * 83);
+                puzzle = raf.readLine();
+            }
 
         } catch (IOException e) {
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Could not start a game");
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Could not find the puzzle file");
             return GameBox.GAME_NOT_STARTED_ERROR;
         }
+
+        if (problemWhileLoading || !pay(players, rule.getCost())) {
+            return GameBox.GAME_NOT_ENOUGH_MONEY;
+        }
+
+        games.put(players[0].getUniqueId(), new Game(rule, plugin, players[0], playSounds, puzzle, cover, tip, number));
+        return GameBox.GAME_STARTED;
     }
 
 
