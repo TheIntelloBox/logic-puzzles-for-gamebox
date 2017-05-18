@@ -1,11 +1,28 @@
-# ----------------------------------------------------------------------------#
+# --------------------------------------------------------------------------- #
 #                                                                             #
 #                               Sudoku config                                 #
 #                                                                             #
 #                                  by Nikl                                    #
-# ----------------------------------------------------------------------------#
+# --------------------------------------------------------------------------- #
+#
+# About customizing the Sudoku puzzles:
+#   You can see all the puzzles in text files in the plugins folder.
+#
+#   YOU SHOULD NOT CHANGE the number or rows in a file!
+#
+#   To customize the puzzles you can replace the included puzzles with your own in the same format:
+#   81 characters numbers from 1 to 9 are tips (displayed at the beginning of the game)
+#     ANY OTHER CHARS are zeros
+#   For example: .3...1.7.4829763.5..5..36.985.19.2...17...498..4867.3.56173...27...491533....2..6
+#     is a valid puzzle and will work. The numbers are row for row. First 9 are the top row, 10th to 18th second row...
+
+
+
 
 # name of the language file (in the folder 'language')
+#   'default' always uses the up-to-date english language file included in the plugin jar
+#   To use your own language file or another language file from the folder, set 'langFile' to the name
+#     of the file (including the extension)
 langFile: "default"
 
 gameBox:
@@ -21,13 +38,15 @@ gameBox:
   gameButtons:
     saveStats:
       materialData: "159:3"
-      displayName: "&c&lMixed difficulty"
+      displayName: "&c&lSudoku"
       lore:
       - ""
       - "&cClimb up the &ltop list"
       - "&aGood luck!"
       - ""
       - "&1Cost: &420"
+      - "&1Reward: &230"
+      - "&1Token: &21"
       slot: 22
       cost: 20
       token: 1
@@ -42,15 +61,15 @@ gameBox:
       displayName: "&cTop list"
       lore:
       - ""
-      - "&cMixed difficulty &1Top List"
+      - "&cSudoku &1Top List"
       slot: 31
       # inventory title of the top list (%player% and %game%)
-      inventoryTitle: '              Top List'
+      inventoryTitle: '          &3Sudoku&r Top List'
       # Lore of the skulls in the inventory. Use %rank% for the rank and %score% for the highest score of the player
       skullLore:
       - ''
-      - '&6Rank:&1 %rank%'
-      - '&6Wins:&1 %wins%'
+      - '&6Rank:&1   %rank%'
+      - '&6Solved:&1 %wins%'
 
 
 rules:
