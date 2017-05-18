@@ -2,35 +2,33 @@
 #   placeholders will be listed in front of the keys
 
 # messages and inventory titles directly related to the game
+
 game:
   econ:
     # use %cost% for the amount payed
     payed: " &2Du hast &4%cost% bezahlt"
     notEnoughMoney: " &4Du hast nicht genug Geld!"
     # use %reward% for the amount the player won
-    wonMoney: " &2Du hast &6%score%&2 Punkte erreicht und &6%reward%&2 gewonnen!"
-  gameOverNoPay: " &2Du hast &6%score%&2 Punkte erreicht"
+    wonMoney: " &2Du hast ein &6Sudoku&2 gelöst und &6%reward%&2 gewonnen!"
   inventoryTitles:
-    gameTitle: "&92048             &6Punkte: %score%"
-    lost: "&92048    &4Game Over  &6Punkte: %score%"
-  buttons:
-    up: '&3Hoch'
-    down: '&3Runter'
-    right: '&3Rechts'
-    left: '&3Links'
+    gameTitle: "&9Sudoku             "
+    won: "&9Sudoku              &2Gewonnen!"
+  won: " &2Du hast ein &6Sudoku&2 gelöst!"
 
 
-prefix: "[&32048&r]"
-name: "&12048&r"
+prefix: "[&3Sudoku&r]"
+name: "&1Sudoku&r"
+
 
 gameHelp:
-  - '&1&lVerschiebe die Kacheln in eine Richtung'
-  - '  &1&lmit Klicks auf die Pfeile.'
-  - '&1&lKacheln bewegen sich immer bis zum Rand des'
-  - '  &1&lSpielfelds, oder bis sie mit einer anderen'
-  - '  &1&lKachel kollidieren.'
-  - '&1&lKollidieren zwei Kacheln mit der selben'
-  - '  &1&lNummer, werden sie zu einer kombiniert.'
-  - '&1&lNach jedem Zug entsteht eine neue Kachel.'
-  - '&1&lVersuche so viele Punkte wie möglich zu'
-  - '  &1&lerreichen, bis kein Zug mehr machbar ist.'
+  - '&1&lIn jeder Zeile, Spalte und jedem 3x3 block,'
+  - '  &1&lmuss jede Zahl von 1 bis 9 einmal vorkommen.'
+  - ''
+  - '&1&lZu Beginn des Spiels sind einige Zahlen gegeben.'
+  - '  &1&lNutze sie, um alle anderen Zahlen zu erschließen.'
+  - ''
+  - '&1&lLinksklick erhöht die Zahl um eins,'
+  - '  &1&lRechtsklick senkt sie um eins.'
+  - ''
+  - '&1&lWenn du von vorne anfangen möchtest,'
+  - '  &1&ldrücke den Neustart button im unteren Inventar.'
