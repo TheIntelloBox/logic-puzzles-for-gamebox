@@ -15,7 +15,7 @@ import java.util.BitSet;
 import java.util.Map;
 
 /**
- * Created by Niklas on 14.04.2017.
+ * Created by Niklas
  *
  * Game
  */
