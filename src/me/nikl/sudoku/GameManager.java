@@ -3,7 +3,6 @@ package me.nikl.sudoku;
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Permissions;
 import me.nikl.gamebox.data.SaveType;
-import me.nikl.gamebox.data.Statistics;
 import me.nikl.gamebox.game.IGameManager;
 import me.nikl.gamebox.util.ItemStackUtil;
 import org.bukkit.Bukkit;
@@ -17,12 +16,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.logging.Level;
 
 /**
- * Created by Niklas on 14.04.2017.
+ * Created by Niklas.
  *
  * 2048s GameManager
  */
@@ -32,8 +30,6 @@ public class GameManager implements IGameManager {
 
     private Map<UUID, Game> games = new HashMap<>();
     private Language lang;
-
-    private Statistics statistics;
 
     private Map<String,GameRules> gameTypes;
 
@@ -52,8 +48,6 @@ public class GameManager implements IGameManager {
     public GameManager(Main plugin){
         this.plugin = plugin;
         this.lang = plugin.lang;
-
-        this.statistics = plugin.gameBox.getStatistics();
 
         this.random = new Random(System.currentTimeMillis());
 
