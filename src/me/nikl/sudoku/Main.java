@@ -49,7 +49,7 @@ public class Main extends JavaPlugin{
             new String[]{"GameBox", "1.3.0"}
     };
 
-    private final String[] subCommands = new String[]{"ex1", "ex2"};
+    private final String[] subCommands = new String[]{"sudoku", "su"};
     private final SaveType topListSaveType = SaveType.WINS;
     private final int playerNum = 1;
 
