@@ -23,9 +23,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -153,7 +150,7 @@ public class Main extends JavaPlugin{
             ConfigurationSection gameButtons = config.getConfigurationSection("gameBox.gameButtons");
             ConfigurationSection buttonSec;
             double cost;
-            boolean saveStats;
+            boolean saveStats, restartButton;
 
             int token, money;
 
@@ -204,10 +201,12 @@ public class Main extends JavaPlugin{
                 cost = buttonSec.getDouble("cost", 0.);
                 saveStats = buttonSec.getBoolean("saveStats", false);
 
+                restartButton = buttonSec.getBoolean("restartButton", true);
+
                 token = buttonSec.getInt("token", 0);
                 money = buttonSec.getInt("money", 0);
 
-                rules = new GameRules(buttonID, cost, money, token, saveStats);
+                rules = new GameRules(buttonID, cost, money, token, restartButton, saveStats);
 
                 setTheButton:
                 if (buttonSec.isInt("slot")) {
@@ -249,6 +248,7 @@ public class Main extends JavaPlugin{
                 meta.setLore(lore);
             }
             gameButton.setItemMeta(meta);
+
             guiManager.registerGameGUI(gameID, GUIManager.MAIN_GAME_GUI, gameGui, gameButton, this.subCommands);
         } else {
             Bukkit.getLogger().log(Level.WARNING, " Missing or wrong configured main button in the configuration file!");
