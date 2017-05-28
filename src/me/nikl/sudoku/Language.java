@@ -14,10 +14,12 @@ public class Language {
 	private FileConfiguration langFile;
 	
 	public String PREFIX = "[&3Sudoku&r]", NAME = "&1Sudoku&r";
-	public List<String> GAME_HELP;
+	public List<String> GAME_HELP, RESTART_LORE;
 	private YamlConfiguration defaultLang;
 
 	public String GAME_TITLE, GAME_TITLE_WON, GAME_PAYED, GAME_NOT_ENOUGH_MONEY, GAME_WON_MONEY, GAME_WON;
+	public String RESTART_NAME;
+
 	
 	public Language(Main plugin){
 		this.plugin = plugin;
@@ -25,6 +27,8 @@ public class Language {
 		PREFIX = getString("prefix");
 		NAME = getString("name");
 
+		RESTART_NAME = getString("restartButton.displayName");
+		RESTART_LORE = getStringList("restartButton.lore");
 
 		getGameMessages();
 	}
