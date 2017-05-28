@@ -18,6 +18,12 @@ game:
 prefix: "[&3Sudoku&r]"
 name: "&1Sudoku&r"
 
+restartButton:
+  displayName: "&c&lRestart"
+  lore:
+  - ""
+  - "&6Double click to restart the puzzle"
+
 gameHelp:
   - '&1&lSudoku is a logic game player on a 9x9 grid.'
   - '&1&lThe grid is divided into 9 3x3 grids.'
