@@ -8,16 +8,17 @@ package me.nikl.sudoku;
 public class GameRules {
 
     private double cost;
-    private boolean saveStats;
+    private boolean saveStats,restartButton;
     private String key;
     private int reward, tokens;
 
-    public GameRules(String key, double cost, int reward, int tokens, boolean saveStats){
+    public GameRules(String key, double cost, int reward, int tokens, boolean restartButton, boolean saveStats){
         this.cost = cost;
         this.saveStats = saveStats;
         this.key = key;
         this.reward = reward;
         this.tokens = tokens;
+        this.restartButton = restartButton;
     }
 
     public double getCost() {
@@ -38,5 +39,9 @@ public class GameRules {
 
     public int getTokens() {
         return tokens;
+    }
+
+    public boolean hasRestartButton() {
+        return restartButton;
     }
 }
