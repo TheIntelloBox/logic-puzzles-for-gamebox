@@ -2,5 +2,11 @@
 
 
 -------------------------------------------------
+version 1.0.2:
+- restart button name and lore in lang files
+- double click for restart button
+- restart button optional per game mode
+
+
 version 1.0.1
 - fix shortcut command
