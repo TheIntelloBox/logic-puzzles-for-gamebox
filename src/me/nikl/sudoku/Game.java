@@ -1,6 +1,5 @@
 package me.nikl.sudoku;
 
-import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -50,6 +49,8 @@ public class Game {
 
     private String puzzle;
 
+    private long lastRestartClick = System.currentTimeMillis();
+
 
     public Game(GameRules rule, Main plugin, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
         this.plugin = plugin;
@@ -74,12 +75,15 @@ public class Game {
 
         player.openInventory(inventory);
 
-        resetButton = new ItemStack(Material.LEVER);
-        ItemMeta meta = resetButton.getItemMeta();
-        meta.setDisplayName(GameBox.chatColor("&c&lRestart"));
-        resetButton.setItemMeta(meta);
+        if(rule.hasRestartButton()) {
+            resetButton = new ItemStack(Material.LEVER);
+            ItemMeta meta = resetButton.getItemMeta();
+            meta.setDisplayName(lang.RESTART_NAME);
+            meta.setLore(lang.RESTART_LORE);
+            resetButton.setItemMeta(meta);
 
-        player.getInventory().setItem(22, resetButton);
+            player.getInventory().setItem(22, resetButton);
+        }
     }
 
     private void loadNumberTiles(Map<Integer, ItemStack> number) {
@@ -173,9 +177,17 @@ public class Game {
 
         if(inventoryClickEvent.getRawSlot() > 81){
             if(inventoryClickEvent.getCurrentItem().isSimilar(resetButton)){
-                gridNumbers = new int[81];
-                buildStartingGrid();
-                if(playSounds)player.playSound(player.getLocation(), Sounds.BURP.bukkitSound(), volume, pitch);
+                long now = System.currentTimeMillis();
+
+                if(now - lastRestartClick > 1000){
+                    lastRestartClick = now;
+                } else {
+                    gridNumbers = new int[81];
+                    buildStartingGrid();
+                    if (playSounds) player.playSound(player.getLocation(), Sounds.BURP.bukkitSound(), volume, pitch);
+
+                    lastRestartClick = now - 1000000;
+                }
             }
             return;
         }
