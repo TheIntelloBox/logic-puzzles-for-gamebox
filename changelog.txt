@@ -1,13 +1,17 @@
 
+
+
+-------------------------------------------------
+v 1.1.0
 - push GB dep to 1.5.0
 --- now compatible with /gba reload
 
--------------------------------------------------
-version 1.0.2:
+
+v 1.0.2:
 - restart button name and lore in lang files
 - double click for restart button
 - restart button optional per game mode
 
 
-version 1.0.1
+v 1.0.1
 - fix shortcut command
