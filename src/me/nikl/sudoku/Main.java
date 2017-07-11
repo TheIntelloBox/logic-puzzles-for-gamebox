@@ -29,7 +29,7 @@ import java.util.logging.Level;
 /**
  * Created by Niklas
  *
- * Main class of the GameBox game Whac A Mole
+ * Main class of the GameBox game Sudoku
  */
 public class Main extends JavaPlugin{
 
