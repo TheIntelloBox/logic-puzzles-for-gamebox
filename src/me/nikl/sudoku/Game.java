@@ -1,5 +1,6 @@
 package me.nikl.sudoku;
 
+import me.nikl.gamebox.GameBoxSettings;
 import me.nikl.gamebox.Sounds;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -69,7 +70,11 @@ public class Game {
         this.playSounds = plugin.getPlaySounds() && playSounds;
 
         // create inventory
-        this.inventory = Bukkit.createInventory(null, 81, lang.GAME_TITLE.replace("%score%", String.valueOf(score)));
+        String title = lang.GAME_TITLE.replace("%score%", String.valueOf(score));
+        if(GameBoxSettings.checkInventoryLength && title.length() > 32){
+            title = "Title is too long!";
+        }
+        this.inventory = Bukkit.createInventory(null, 81, title);
 
         buildStartingGrid();
 
