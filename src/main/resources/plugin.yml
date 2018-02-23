@@ -1,0 +1,6 @@
+name: LogicPuzzles
+author: Nikl
+main: me.nikl.gamebox.games.LogicPuzzles
+version: 1.0.0
+website: nikl.me
+depend: [GameBox]

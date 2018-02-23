@@ -1,21 +1,22 @@
-package me.nikl.sudoku;
+package me.nikl.gamebox.games.sudoku;
+
+import me.nikl.gamebox.data.toplist.SaveType;
+import me.nikl.gamebox.games.GameRule;
 
 /**
  * Created by Niklas
  *
  * Game rules container for Whac a mole
  */
-public class GameRules {
+public class SudokuGameRules extends GameRule{
 
     private double cost;
-    private boolean saveStats,restartButton;
-    private String key;
+    private boolean restartButton;
     private int reward, tokens;
 
-    public GameRules(String key, double cost, int reward, int tokens, boolean restartButton, boolean saveStats){
+    public SudokuGameRules(String key, double cost, int reward, int tokens, boolean restartButton, boolean saveStats){
+        super(key, saveStats, SaveType.WINS);
         this.cost = cost;
-        this.saveStats = saveStats;
-        this.key = key;
         this.reward = reward;
         this.tokens = tokens;
         this.restartButton = restartButton;
@@ -23,14 +24,6 @@ public class GameRules {
 
     public double getCost() {
         return cost;
-    }
-
-    public boolean isSaveStats() {
-        return saveStats;
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public int getReward() {

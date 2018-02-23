@@ -1,7 +1,9 @@
-package me.nikl.sudoku;
+package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.GameBoxSettings;
 import me.nikl.gamebox.Sounds;
+import me.nikl.gamebox.games.LogicPuzzles;
+import me.nikl.gamebox.nms.NmsFactory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,13 +21,13 @@ import java.util.Map;
  *
  * Game
  */
-public class Game {
+public class SudokuGame {
 
-    private Main plugin;
+    private LogicPuzzles plugin;
 
     private String ruleKey;
     private boolean playSounds, wasWon = false;
-    private Language lang;
+    private SudokuLanguage lang;
 
     private Inventory inventory;
 
@@ -53,7 +55,7 @@ public class Game {
     private long lastRestartClick = System.currentTimeMillis();
 
 
-    public Game(GameRules rule, Main plugin, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
+    public SudokuGame(SudokuGameRules rule, LogicPuzzles plugin, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
         this.plugin = plugin;
         this.lang = plugin.lang;
         this.ruleKey = rule.getKey();
@@ -235,7 +237,7 @@ public class Game {
             if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
             if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
             plugin.getGameManager().onGameEnd(player, ruleKey);
-            plugin.getNms().updateInventoryTitle(player, lang.GAME_TITLE_WON);
+            NmsFactory.getNmsUtility().updateInventoryTitle(player, lang.GAME_TITLE_WON);
         }
     }
 }

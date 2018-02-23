@@ -1,50 +1,45 @@
-package me.nikl.sudoku;
+package me.nikl.gamebox.games.sudoku;
 
-import me.nikl.gamebox.ClickAction;
 import me.nikl.gamebox.GameBox;
-import me.nikl.gamebox.GameBoxSettings;
-import me.nikl.gamebox.data.SaveType;
-import me.nikl.gamebox.guis.GUIManager;
-import me.nikl.gamebox.guis.button.AButton;
-import me.nikl.gamebox.guis.gui.game.GameGui;
-import me.nikl.gamebox.guis.gui.game.TopListPage;
-import me.nikl.gamebox.nms.NMSUtil;
-import me.nikl.gamebox.util.ItemStackUtil;
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.*;
-import java.util.*;
-import java.util.logging.Level;
+import me.nikl.gamebox.games.*;
 
 /**
- * Created by Niklas
- *
- * Main class of the GameBox game Sudoku
+ * Created by nikl on 23.02.18.
  */
-public class Main extends JavaPlugin{
+public class Sudoku extends me.nikl.gamebox.games.Game {
+    protected Sudoku(GameBox gameBox) {
+        super(gameBox, LogicPuzzles.SUDOKU);
+    }
 
-    public static boolean debug = false;
-    public static String gameID = "sudoku";
+    @Override
+    public void onDisable() {
 
-    public static Economy econ = null;
-    private boolean econEnabled;
+    }
 
-    public Language lang;
+    @Override
+    public void init() {
 
-    private final String[][] depends = new String[][]{
-            new String[]{"Vault", "1.5"},
-            new String[]{"GameBox", "1.5.0"}
-    };
+    }
+
+    @Override
+    public void loadSettings() {
+        gameSettings.setGameType(GameSettings.GameType.SINGLE_PLAYER);
+        gameSettings.setGameGuiSize(54);
+        gameSettings.setHandleClicksOnHotbar(false);
+    }
+
+    @Override
+    public void loadLanguage() {
+        gameLang = new SudokuLanguage(this);
+    }
+
+    @Override
+    public void loadGameManager() {
+        gameManager = new SudokuGameManager(this);
+    }
+}
+
+/*
 
     private final String[] subCommands = new String[]{"sudoku", "su"};
     private final SaveType topListSaveType = SaveType.WINS;
@@ -61,7 +56,7 @@ public class Main extends JavaPlugin{
     public void onEnable() {
 
 
-        this.con = new File(this.getDataFolder().toString() + File.separatorChar + "config.yml");
+        this.con = new File(this.getDataFolder().toString() + File.separatorChar + "games/sudoku/config.yml");
 
         reload();
         if (disabled) return;
@@ -358,7 +353,7 @@ public class Main extends JavaPlugin{
 
     public void reload() {
         if (!con.exists()) {
-            this.saveResource("config.yml", false);
+            this.saveResource("games/sudoku/config.yml", false);
         }
         reloadConfig();
 
@@ -405,4 +400,4 @@ public class Main extends JavaPlugin{
     public boolean isEconEnabled(){
         return this.econEnabled;
     }
-}
+ */

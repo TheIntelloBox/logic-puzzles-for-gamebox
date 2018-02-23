@@ -1,9 +1,11 @@
-package me.nikl.sudoku;
+package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Permissions;
 import me.nikl.gamebox.data.SaveType;
 import me.nikl.gamebox.game.IGameManager;
+import me.nikl.gamebox.games.GameRule;
+import me.nikl.gamebox.games.LogicPuzzles;
 import me.nikl.gamebox.util.ItemStackUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,6 +14,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -25,13 +28,13 @@ import java.util.logging.Level;
  * 2048s GameManager
  */
 
-public class GameManager implements IGameManager {
-    private Main plugin;
+public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
+    private LogicPuzzles plugin;
 
-    private Map<UUID, Game> games = new HashMap<>();
-    private Language lang;
+    private Map<UUID, SudokuGame> games = new HashMap<>();
+    private SudokuLanguage lang;
 
-    private Map<String,GameRules> gameTypes;
+    private Map<String,SudokuGameRules> gameTypes;
 
 
     private RandomAccessFile raf;
@@ -45,16 +48,16 @@ public class GameManager implements IGameManager {
     private boolean problemWhileLoading = false;
 
 
-    public GameManager(Main plugin){
+    public SudokuGameManager(Sudoku game){
         this.plugin = plugin;
         this.lang = plugin.lang;
 
         this.random = new Random(System.currentTimeMillis());
 
 
-        File puzzle = new File(plugin.getDataFolder().toString() + File.separatorChar + "puzzles.yml");
+        File puzzle = new File(plugin.getDataFolder().toString() + File.separatorChar + "games/sudoku/puzzles.yml");
         if(!puzzle.exists()){
-            plugin.saveResource("puzzles.yml", false);
+            plugin.saveResource("games/sudoku/puzzles.yml", false);
         }
 
         try {
@@ -127,7 +130,7 @@ public class GameManager implements IGameManager {
 
     @Override
     public boolean onInventoryClick(InventoryClickEvent inventoryClickEvent) {
-        Game game = games.get(inventoryClickEvent.getWhoClicked().getUniqueId());
+        SudokuGame game = games.get(inventoryClickEvent.getWhoClicked().getUniqueId());
         if(game == null) return false;
 
         game.onClick(inventoryClickEvent);
@@ -160,7 +163,7 @@ public class GameManager implements IGameManager {
             return GameBox.GAME_NOT_STARTED_ERROR;
         }
 
-        GameRules rule = gameTypes.get(strings[0]);
+        SudokuGameRules rule = gameTypes.get(strings[0]);
 
         if (rule == null) {
             Bukkit.getLogger().log(Level.WARNING, " unknown gametype: " + Arrays.asList(strings));
@@ -194,7 +197,7 @@ public class GameManager implements IGameManager {
             return GameBox.GAME_NOT_ENOUGH_MONEY;
         }
 
-        games.put(players[0].getUniqueId(), new Game(rule, plugin, players[0], playSounds, puzzle, cover, tip, number));
+        games.put(players[0].getUniqueId(), new SudokuGame(rule, plugin, players[0], playSounds, puzzle, cover, tip, number));
         return GameBox.GAME_STARTED;
     }
 
@@ -205,34 +208,35 @@ public class GameManager implements IGameManager {
         games.remove(uuid);
     }
 
+    @Override
+    public void loadGameRules(ConfigurationSection buttonSec, String buttonID) {
+        double cost = buttonSec.getDouble("cost", 0.);
+        boolean saveStats = buttonSec.getBoolean("saveStats", false);
+        boolean restartButton = buttonSec.getBoolean("restartButton", true);
+        int token = buttonSec.getInt("token", 0);
+        int money = buttonSec.getInt("money", 0);
 
-    public void setGameTypes(Map<String, GameRules> gameTypes) {
-        this.gameTypes = gameTypes;
+        gameTypes.put(buttonID, new SudokuGameRules(buttonID, cost, money, token, restartButton, saveStats));
     }
 
-
-    private boolean pay(Player[] player, double cost) {
-        if (plugin.isEconEnabled() && !player[0].hasPermission(Permissions.BYPASS_ALL.getPermission()) && !player[0].hasPermission(Permissions.BYPASS_GAME.getPermission(Main.gameID)) && cost > 0.0) {
-            if (Main.econ.getBalance(player[0]) >= cost) {
-                Main.econ.withdrawPlayer(player[0], cost);
-                player[0].sendMessage(GameBox.chatColor(lang.PREFIX + plugin.lang.GAME_PAYED.replaceAll("%cost%", String.valueOf(cost))));
-                return true;
-            } else {
-                player[0].sendMessage(GameBox.chatColor(lang.PREFIX + plugin.lang.GAME_NOT_ENOUGH_MONEY));
-                return false;
-            }
-        } else {
-            return true;
-        }
+    @Override
+    public Map<String, ? extends GameRule> getGameRules() {
+        return gameTypes;
     }
 
+    @Override
+    public Inventory getInventory() {
+        return null;
+    }
+
+    // ToDo move to abstract game class
     public void onGameEnd(Player winner, String key) {
 
-        GameRules rule = gameTypes.get(key);
+        SudokuGameRules rule = gameTypes.get(key);
 
         if(plugin.isEconEnabled()){
-            if(!winner.hasPermission(Permissions.BYPASS_ALL.getPermission()) && !winner.hasPermission(Permissions.BYPASS_GAME.getPermission(Main.gameID))){
-                Main.econ.depositPlayer(winner, rule.getReward());
+            if(!winner.hasPermission(Permissions.BYPASS_ALL.getPermission()) && !winner.hasPermission(Permissions.BYPASS_GAME.getPermission(LogicPuzzles.gameID))){
+                LogicPuzzles.econ.depositPlayer(winner, rule.getReward());
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON_MONEY.replaceAll("%reward%", rule.getReward()+"")));
             } else {
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON));
@@ -242,10 +246,10 @@ public class GameManager implements IGameManager {
         }
 
         if(rule.isSaveStats()){
-            plugin.gameBox.getStatistics().addStatistics(winner.getUniqueId(), Main.gameID, key, 1., SaveType.WINS);
+            plugin.gameBox.getStatistics().addStatistics(winner.getUniqueId(), LogicPuzzles.gameID, key, 1., SaveType.WINS);
         }
         if(rule.getTokens() > 0){
-            plugin.gameBox.wonTokens(winner.getUniqueId(), rule.getTokens(), Main.gameID);
+            plugin.gameBox.wonTokens(winner.getUniqueId(), rule.getTokens(), LogicPuzzles.gameID);
         }
     }
 }
