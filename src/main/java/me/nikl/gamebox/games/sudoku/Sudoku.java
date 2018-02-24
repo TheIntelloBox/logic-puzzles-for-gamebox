@@ -7,7 +7,7 @@ import me.nikl.gamebox.games.*;
  * Created by nikl on 23.02.18.
  */
 public class Sudoku extends me.nikl.gamebox.games.Game {
-    protected Sudoku(GameBox gameBox) {
+    public Sudoku(GameBox gameBox) {
         super(gameBox, LogicPuzzles.SUDOKU);
     }
 

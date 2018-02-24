@@ -23,13 +23,10 @@ public class SudokuLanguage extends GameLanguage{
 		RESTART_LORE = getStringList("restartButton.lore");
 		this.GAME_TITLE = getString("game.inventoryTitles.gameTitle");
 		this.GAME_TITLE_WON = getString("game.inventoryTitles.won");
-
 		this.GAME_WON_MONEY = getString("game.econ.wonMoney");
 		this.GAME_WON = getString("game.won");
-
 		this.GAME_PAYED = getString("game.econ.payed");
 		this.GAME_NOT_ENOUGH_MONEY = getString("game.econ.notEnoughMoney");
-
 		this.GAME_HELP = getStringList("gameHelp");
 	}
 }

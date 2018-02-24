@@ -2,7 +2,6 @@ package me.nikl.gamebox.games;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Module;
-import me.nikl.gamebox.games.sudoku.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -13,17 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Main class of the GameBox game Sudoku
  */
 public class LogicPuzzles extends JavaPlugin{
-
-    public static boolean debug = false;
     public static final String SUDOKU = "sudoku";
     private GameBox gameBox;
-
-    public SudokuLanguage lang;
-
-    private final String[][] depends = new String[][]{
-            new String[]{"Vault", "1.5"},
-            new String[]{"GameBox", "2.0.0"}
-    };
 
     @Override
     public void onEnable(){
@@ -38,5 +28,4 @@ public class LogicPuzzles extends JavaPlugin{
                 , "me.nikl.gamebox.games.sudoku.Sudoku"
                 , this, SUDOKU, "su");
     }
-
 }

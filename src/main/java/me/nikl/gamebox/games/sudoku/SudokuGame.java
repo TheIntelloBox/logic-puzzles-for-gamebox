@@ -1,9 +1,8 @@
 package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.GameBoxSettings;
-import me.nikl.gamebox.Sounds;
-import me.nikl.gamebox.games.LogicPuzzles;
 import me.nikl.gamebox.nms.NmsFactory;
+import me.nikl.gamebox.utility.Sound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,54 +21,35 @@ import java.util.Map;
  * Game
  */
 public class SudokuGame {
-
-    private LogicPuzzles plugin;
-
+    private Sudoku game;
     private String ruleKey;
     private boolean playSounds, wasWon = false;
     private SudokuLanguage lang;
-
     private Inventory inventory;
-
     private Player player;
-
-    private Sounds won = Sounds.VILLAGER_YES, click = Sounds.CLICK;
-
+    private Sound won = Sound.VILLAGER_YES, click = Sound.CLICK;
     private float volume = 0.5f, pitch= 1f;
-
     private int score = 0;
-
     private Map<Integer, ItemStack> cover;
     private Map<Integer, ItemStack> tip;
-
     private int[] gridNumbers = new int[81];
-
     private ItemStack[][] numberTiles = new ItemStack[9][9];
-
     private BitSet tips = new BitSet(81);
-
     private ItemStack resetButton;
-
     private String puzzle;
-
     private long lastRestartClick = System.currentTimeMillis();
 
-
-    public SudokuGame(SudokuGameRules rule, LogicPuzzles plugin, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
-        this.plugin = plugin;
-        this.lang = plugin.lang;
+    public SudokuGame(SudokuGameRules rule, Sudoku game, Player player, boolean playSounds, String puzzle, Map<Integer, ItemStack> cover, Map<Integer, ItemStack> tip, Map<Integer, ItemStack> number){
+        this.game = game;
+        this.lang = (SudokuLanguage) game.getGameLang();
         this.ruleKey = rule.getKey();
         this.player = player;
-
         this.puzzle = puzzle;
-
         this.cover = cover;
         this.tip = tip;
-
         loadNumberTiles(number);
-
         // only play sounds if the game setting allows to
-        this.playSounds = plugin.getPlaySounds() && playSounds;
+        this.playSounds = game.getSettings().isPlaySounds() && playSounds;
 
         // create inventory
         String title = lang.GAME_TITLE.replace("%score%", String.valueOf(score));
@@ -191,7 +171,7 @@ public class SudokuGame {
                 } else {
                     gridNumbers = new int[81];
                     buildStartingGrid();
-                    if (playSounds) player.playSound(player.getLocation(), Sounds.BURP.bukkitSound(), volume, pitch);
+                    if (playSounds) player.playSound(player.getLocation(), Sound.BURP.bukkitSound(), volume, pitch);
 
                     lastRestartClick = now - 1000000;
                 }
@@ -236,8 +216,12 @@ public class SudokuGame {
             wasWon = true;
             if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
             if(playSounds)player.playSound(player.getLocation(), won.bukkitSound(), volume, pitch);
-            plugin.getGameManager().onGameEnd(player, ruleKey);
+            ((SudokuGameManager)game.getGameManager()).onGameEnd(player, ruleKey);
             NmsFactory.getNmsUtility().updateInventoryTitle(player, lang.GAME_TITLE_WON);
         }
+    }
+
+    public void quit() {
+        // nothing to clean up atm...
     }
 }
