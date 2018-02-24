@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class LogicPuzzles extends JavaPlugin{
     public static final String SUDOKU = "sudoku";
+    public static final String THREE_IN_A_ROW = "threeinarow";
     private GameBox gameBox;
 
     @Override
