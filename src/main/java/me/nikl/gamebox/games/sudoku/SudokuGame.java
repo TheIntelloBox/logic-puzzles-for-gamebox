@@ -56,19 +56,15 @@ public class SudokuGame {
         if(GameBoxSettings.checkInventoryLength && title.length() > 32){
             title = "Title is too long!";
         }
-        this.inventory = Bukkit.createInventory(null, 81, title);
-
+        this.inventory = game.createInventory(81, title);
         buildStartingGrid();
-
         player.openInventory(inventory);
-
         if(rule.hasRestartButton()) {
             resetButton = new ItemStack(Material.LEVER);
             ItemMeta meta = resetButton.getItemMeta();
             meta.setDisplayName(lang.RESTART_NAME);
             meta.setLore(lang.RESTART_LORE);
             resetButton.setItemMeta(meta);
-
             player.getInventory().setItem(22, resetButton);
         }
     }
@@ -105,15 +101,12 @@ public class SudokuGame {
                 inventory.setItem(slot, cover.get(y*3 + x));
                 continue;
             }
-
             if(valueInt == 0){
                 inventory.setItem(slot, cover.get(y*3 + x));
                 continue;
             }
-
             tips.set(slot);
             gridNumbers[slot] = valueInt;
-
             tip = this.tip.get(y*3 + x).clone();
             meta = tip.getItemMeta();
             meta.setDisplayName(meta.getDisplayName().replace("%value%", String.valueOf(value)));

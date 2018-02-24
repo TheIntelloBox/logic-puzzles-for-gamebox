@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SudokuLanguage extends GameLanguage{
 
-	public List<String> GAME_HELP, RESTART_LORE;
+	public List<String> RESTART_LORE;
 
 	public String GAME_TITLE, GAME_TITLE_WON, GAME_PAYED, GAME_NOT_ENOUGH_MONEY, GAME_WON_MONEY, GAME_WON;
 	public String RESTART_NAME;
@@ -27,7 +27,6 @@ public class SudokuLanguage extends GameLanguage{
 		this.GAME_WON = getString("game.won");
 		this.GAME_PAYED = getString("game.econ.payed");
 		this.GAME_NOT_ENOUGH_MONEY = getString("game.econ.notEnoughMoney");
-		this.GAME_HELP = getStringList("gameHelp");
 	}
 }
 

@@ -149,6 +149,7 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
         // for time out reasons when someone messed with the puzzles file...
         int count = 0;
         try {
+            int lineLength = raf.readLine().toCharArray().length + String.format("%n").toCharArray().length;
             while (puzzle == null || !(puzzle.toCharArray().length >= 81)) {
                 if(count > 20){
                     Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Unable to find a puzzle - Something is wrong with the puzzles file!");
@@ -156,7 +157,7 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
                     throw new GameStartException(GameStartException.Reason.ERROR);
                 }
                 count ++;
-                raf.seek(random.nextInt(2000) * 83);
+                raf.seek(random.nextInt(2000) * lineLength);
                 puzzle = raf.readLine();
             }
         } catch (IOException e) {
