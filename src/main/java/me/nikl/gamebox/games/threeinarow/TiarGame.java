@@ -1,6 +1,7 @@
 package me.nikl.gamebox.games.threeinarow;
 
-import me.nikl.gamebox.utility.ItemStackUtility;
+import me.nikl.gamebox.nms.NmsFactory;
+import me.nikl.gamebox.utility.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -20,15 +21,22 @@ public class TiarGame {
     private Inventory inventory;
     private TiarLanguage language;
     private ThreeInARow game;
+    private TiarRules rule;
+    private Player player;
     private Map<Integer, ItemStack> helpItems = new HashMap<>();
     private Integer[] grid = new Integer[36];
     private List<Integer> tipSlots = new ArrayList<>();
     private ItemStack backGround;
-    
+    private Sound won = Sound.VILLAGER_YES
+            , click = Sound.WOOD_CLICK;
+    private boolean finished = false;
+
     public TiarGame(ThreeInARow threeInARow, TiarRules rules, Player player, String game){
+        this.player = player;
         language = (TiarLanguage) threeInARow.getGameLang();
         this.game = threeInARow;
         backGround = this.game.getBackGround();
+        this.rule = rules;
         this.inventory = threeInARow.createInventory(54 + 9, language.GAME_TITLE);
         prepareInventory(game);
         player.openInventory(inventory);
@@ -61,10 +69,11 @@ public class TiarGame {
 
     private void placeBackGround() {
         for (int i = 0; i < 7; i++) {
+            inventory.setItem(i, backGround);
             inventory.setItem(i*9, backGround);
             inventory.setItem(i*9 + 8, backGround);
+            inventory.setItem(i*9 + 7, backGround);
         }
-        inventory.setItem(7, backGround);
     }
 
     private void placeHelpItems() {
@@ -145,6 +154,7 @@ public class TiarGame {
         int gridSlot = inventoryToGrid(inventorySlot);
         if (gridSlot < 0) return;
         if (tipSlots.contains(inventorySlot)) return;
+        game.playSound(player, click);
         grid[gridSlot] = (grid[gridSlot] + 1) % 3;
         updateGridSlot(gridSlot);
     }
@@ -165,11 +175,43 @@ public class TiarGame {
     }
 
     public boolean onClick(InventoryClickEvent inventoryClickEvent) {
-        if (inventoryClickEvent.getClick() == ClickType.DOUBLE_CLICK) return true;
+        if (inventoryClickEvent.getClick() == ClickType.DOUBLE_CLICK || finished) return true;
         clickSlot(inventoryClickEvent.getSlot());
+        if (isFinished()) {
+            game.onGameWon(player, rule, 1);
+            NmsFactory.getNmsUtility().updateInventoryTitle(player, language.GAME_TITLE_WON);
+            game.playSound(player, won);
+            this.finished = true;
+        }
         return true;
     }
 
     public void onClose() {
+    }
+
+    private boolean isFinished() {
+        int blueRow, blueColumn;
+        int whiteRow, whiteColumn;
+        StringBuilder columnStringBuilder = new StringBuilder();
+        StringBuilder rowStringBuilder = new StringBuilder();
+        for (int column = 0; column < 6; column++) {
+            blueColumn = 0; whiteColumn = 0; columnStringBuilder.setLength(0);
+            blueRow = 0; whiteRow = 0; rowStringBuilder.setLength(0);
+            for (int row = 0; row < 6; row++) {
+                if (grid[row * 6 + column] == 1) whiteColumn++;
+                if (grid[row * 6 + column] == 2) blueColumn++;
+                columnStringBuilder.append(grid[row * 6 + column]);
+                if (grid[column * 6 + row] == 1) whiteRow++;
+                if (grid[column * 6 + row] == 2) blueRow++;
+                rowStringBuilder.append(grid[column * 6 + row]);
+            }
+            if (blueColumn != 3 || whiteColumn != 3) return false;
+            if (blueRow != 3 || whiteRow != 3) return false;
+            String columnStr = columnStringBuilder.toString();
+            if (columnStr.contains("111") || columnStr.contains("222")) return false;
+            String rowStr = rowStringBuilder.toString();
+            if (rowStr.contains("111") || rowStr.contains("222")) return false;
+        }
+        return true;
     }
 }

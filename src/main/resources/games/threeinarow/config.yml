@@ -38,6 +38,10 @@ gameBox:
       cost: 20
       token: 1
       money: 30
+      # option to display the items with the helping lore
+      # that counts the blue and white tiles in the row/column
+      #    default: true
+      helpItems: true
       # if true the best score of this button is saved
       saveStats: true
   topListButtons:
@@ -88,7 +92,7 @@ game:
     - "&cThis cannot be changed"
   wrongHelpItem:
     materialData: "160:14"
-    displayName: "&4Incomplete:"
+    displayName: "&4&lIncomplete:"
     lore:
     - ""
     - "Blue: %blue_count%/3"

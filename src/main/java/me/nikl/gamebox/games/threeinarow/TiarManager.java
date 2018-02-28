@@ -59,16 +59,15 @@ public class TiarManager implements GameManager {
     }
 
     @Override
-    public boolean onInventoryClick(InventoryClickEvent inventoryClickEvent) {
+    public void onInventoryClick(InventoryClickEvent inventoryClickEvent) {
         TiarGame game = games.get(inventoryClickEvent.getWhoClicked().getUniqueId());
-        if(game == null) return false;
-        return game.onClick(inventoryClickEvent);
+        if(game == null) return;
+        game.onClick(inventoryClickEvent);
     }
 
     @Override
-    public boolean onInventoryClose(InventoryCloseEvent inventoryCloseEvent) {
+    public void onInventoryClose(InventoryCloseEvent inventoryCloseEvent) {
         removeFromGame(inventoryCloseEvent.getPlayer().getUniqueId());
-        return true;
     }
 
     @Override
@@ -118,15 +117,17 @@ public class TiarManager implements GameManager {
         TiarGame game = games.get(uuid);
         if (game == null) return;
         game.onClose();
+        games.remove(uuid);
     }
 
     @Override
     public void loadGameRules(ConfigurationSection buttonSec, String buttonID) {
         double cost = buttonSec.getDouble("cost", 0.);
         boolean saveStats = buttonSec.getBoolean("saveStats", false);
+        boolean helpItems = buttonSec.getBoolean("helpItems", true);
         int token = buttonSec.getInt("token", 0);
         int money = buttonSec.getInt("money", 0);
-        TiarRules rule = new TiarRules(buttonID, saveStats, cost, money, token);
+        TiarRules rule = new TiarRules(buttonID, saveStats, cost, money, token, helpItems);
         gameTypes.put(buttonID, rule);
     }
 
