@@ -28,5 +28,8 @@ public class LogicPuzzles extends JavaPlugin{
         new Module(gameBox, SUDOKU
                 , "me.nikl.gamebox.games.sudoku.Sudoku"
                 , this, SUDOKU, "su");
+        new Module(gameBox, THREE_IN_A_ROW
+                , "me.nikl.gamebox.games.threeinarow.ThreeInARow"
+                , this, THREE_IN_A_ROW, "tiar");
     }
 }

@@ -14,11 +14,14 @@ import org.bukkit.inventory.Inventory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
 
 /**
  * Created by nikl on 25.02.18.
@@ -34,11 +37,13 @@ public class TiarManager implements GameManager {
 
     TiarManager (ThreeInARow game) {
         this.game = game;
+        this.random = new Random(System.currentTimeMillis());
+        this.lang = (TiarLanguage) game.getGameLang();
         loadPuzzles();
     }
 
     private void loadPuzzles() {
-        File puzzle = new File(game.getDataFolder().toString() + File.separatorChar + "puzzles.yml");
+        File puzzle = new File(game.getDataFolder().toString() + File.separatorChar + "puzzles.txt");
         if(!puzzle.exists()){
             game.warn(" Puzzles file is missing!");
             problemWhileLoading = true;
@@ -68,12 +73,44 @@ public class TiarManager implements GameManager {
 
     @Override
     public boolean isInGame(UUID uuid) {
-        return false;
+        return games.keySet().contains(uuid);
     }
 
     @Override
-    public void startGame(Player[] players, boolean b, String... strings) throws GameStartException {
-
+    public void startGame(Player[] players, boolean playSounds, String... args) throws GameStartException {
+        if(raf == null || problemWhileLoading) throw new GameStartException(GameStartException.Reason.ERROR);
+        if (args.length != 1) {
+            Bukkit.getLogger().log(Level.WARNING, " unknown number of arguments to start a game: " + Arrays.asList(args));
+            throw new GameStartException(GameStartException.Reason.ERROR);
+        }
+        TiarRules rule = gameTypes.get(args[0]);
+        if (rule == null) {
+            Bukkit.getLogger().log(Level.WARNING, " unknown game mode: " + Arrays.asList(args));
+            throw new GameStartException(GameStartException.Reason.ERROR);
+        }
+        String puzzle = null;
+        // for time out reasons when someone messed with the puzzles file...
+        int count = 0;
+        try {
+            int lineLength = raf.readLine().toCharArray().length + String.format("%n").toCharArray().length;
+            while (puzzle == null || !(puzzle.toCharArray().length >= 73)) {
+                if(count > 20){
+                    game.warn(ChatColor.RED + " Unable to find a puzzle - Something is wrong with the puzzles file!");
+                    game.warn(ChatColor.RED + " Delete the puzzles file and reload the plugin.");
+                    throw new GameStartException(GameStartException.Reason.ERROR);
+                }
+                count ++;
+                raf.seek(random.nextInt(378) * lineLength);
+                puzzle = raf.readLine();
+            }
+        } catch (IOException e) {
+            game.warn(ChatColor.RED + " I/O Exception while looking for a puzzle!");
+            throw new GameStartException(GameStartException.Reason.ERROR);
+        }
+        if (!game.payIfNecessary(players[0], rule.getMoneyToPay())) {
+            throw new GameStartException(GameStartException.Reason.NOT_ENOUGH_MONEY);
+        }
+        games.put(players[0].getUniqueId(), new TiarGame(game, rule, players[0], puzzle));
     }
 
     @Override
@@ -89,15 +126,13 @@ public class TiarManager implements GameManager {
         boolean saveStats = buttonSec.getBoolean("saveStats", false);
         int token = buttonSec.getInt("token", 0);
         int money = buttonSec.getInt("money", 0);
-        TiarRules rule = new TiarRules(buttonID, saveStats, SaveType.WINS, cost);
-        rule.setMoneyToWin(money);
-        rule.setTokenToWin(token);
+        TiarRules rule = new TiarRules(buttonID, saveStats, cost, money, token);
         gameTypes.put(buttonID, rule);
     }
 
     @Override
     public Map<String, ? extends GameRule> getGameRules() {
-        return null;
+        return gameTypes;
     }
 
     @Override
