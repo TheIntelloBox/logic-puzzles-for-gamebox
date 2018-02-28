@@ -100,3 +100,6 @@ game:
     - ""
     - "Blue: 3/3"
     - "White: 3/3"
+  backGround:
+    materialData: "160:7"
+    displayName: "&a"

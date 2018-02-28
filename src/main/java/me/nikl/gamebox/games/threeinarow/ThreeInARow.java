@@ -19,6 +19,7 @@ public class ThreeInARow extends Game {
     private ItemStack whiteTileTip;
     private ItemStack wrongHelpItem;
     private ItemStack correctHelpItem;
+    private ItemStack backGround;
 
     public ThreeInARow(GameBox gameBox) {
         super(gameBox, LogicPuzzles.THREE_IN_A_ROW);
@@ -41,6 +42,7 @@ public class ThreeInARow extends Game {
         whiteTileTip = loadItem("game.whiteTileTip", "159");
         wrongHelpItem = loadItem("game.wrongHelpItem", "160:14");
         correctHelpItem = loadItem("game.correctHelpItem", "160:13");
+        backGround = loadItem("game.backGround", "160:7");
     }
 
     private ItemStack loadItem(String path, String defaultMaterial) {
@@ -99,5 +101,9 @@ public class ThreeInARow extends Game {
 
     public ItemStack getWhiteTileTip() {
         return whiteTileTip.clone();
+    }
+
+    public ItemStack getBackGround() {
+        return backGround;
     }
 }

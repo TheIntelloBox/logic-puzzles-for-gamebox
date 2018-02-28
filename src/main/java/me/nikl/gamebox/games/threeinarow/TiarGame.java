@@ -23,11 +23,12 @@ public class TiarGame {
     private Map<Integer, ItemStack> helpItems = new HashMap<>();
     private Integer[] grid = new Integer[36];
     private List<Integer> tipSlots = new ArrayList<>();
-    private ItemStack backGround = ItemStackUtility.getItemStack("160:7");
+    private ItemStack backGround;
     
     public TiarGame(ThreeInARow threeInARow, TiarRules rules, Player player, String game){
         language = (TiarLanguage) threeInARow.getGameLang();
         this.game = threeInARow;
+        backGround = this.game.getBackGround();
         this.inventory = threeInARow.createInventory(54 + 9, language.GAME_TITLE);
         prepareInventory(game);
         player.openInventory(inventory);
