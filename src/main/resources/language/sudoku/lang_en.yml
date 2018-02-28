@@ -10,7 +10,7 @@ game:
     # use %reward% for the amount the player won
     wonMoney: " &2You won &6Sudoku&2 and got payed &6%reward%&2!"
   inventoryTitles:
-    gameTitle: "&9Sudoku             "
+    gameTitle: "          &9Sudoku"
     won: "&9Sudoku              &2You won!"
   won: " &2You solved a &6Sudoku&2 puzzle."
 
