@@ -115,17 +115,15 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
     }
 
     @Override
-    public boolean onInventoryClick(InventoryClickEvent inventoryClickEvent) {
+    public void onInventoryClick(InventoryClickEvent inventoryClickEvent) {
         SudokuGame game = games.get(inventoryClickEvent.getWhoClicked().getUniqueId());
-        if(game == null) return false;
+        if(game == null) return;
         game.onClick(inventoryClickEvent);
-        return true;
     }
 
     @Override
-    public boolean onInventoryClose(InventoryCloseEvent inventoryCloseEvent) {
+    public void onInventoryClose(InventoryCloseEvent inventoryCloseEvent) {
         removeFromGame(inventoryCloseEvent.getPlayer().getUniqueId());
-        return true;
     }
 
     @Override
