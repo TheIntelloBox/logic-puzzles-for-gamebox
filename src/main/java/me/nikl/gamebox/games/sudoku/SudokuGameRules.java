@@ -1,20 +1,18 @@
 package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.data.toplist.SaveType;
-import me.nikl.gamebox.games.GameRule;
+import me.nikl.gamebox.games.GameRuleRewards;
 
 /**
  * Created by Niklas
  *
  * Game rules container for Whac a mole
  */
-public class SudokuGameRules extends GameRule{
+public class SudokuGameRules extends GameRuleRewards {
     private boolean restartButton;
 
     public SudokuGameRules(String key, double cost, int reward, int tokens, boolean restartButton, boolean saveStats){
-        super(key, saveStats, SaveType.WINS, cost);
-        setMoneyToWin(reward);
-        setToken(tokens);
+        super(key, saveStats, SaveType.WINS, cost, reward, tokens);
         this.restartButton = restartButton;
     }
 

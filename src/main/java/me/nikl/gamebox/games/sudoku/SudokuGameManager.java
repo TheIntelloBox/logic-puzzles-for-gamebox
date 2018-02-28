@@ -164,7 +164,7 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " I/O Exception while looking for a puzzle!");
             throw new GameStartException(GameStartException.Reason.ERROR);
         }
-        if (problemWhileLoading || !game.payIfNecessary(players[0], rule.getMoneyToPay())) {
+        if (!game.payIfNecessary(players[0], rule.getMoneyToPay())) {
             throw new GameStartException(GameStartException.Reason.NOT_ENOUGH_MONEY);
         }
         games.put(players[0].getUniqueId(), new SudokuGame(rule, game, players[0], playSounds, puzzle, cover, tip, number));
@@ -203,7 +203,7 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
     public void onGameEnd(Player winner, String key) {
         SudokuGameRules rule = gameTypes.get(key);
         if(GameBoxSettings.econEnabled){
-            if(!winner.hasPermission(Permission.BYPASS_ALL.getPermission()) && !winner.hasPermission(Permission.BYPASS_GAME.getPermission(game.getGameID()))){
+            if(!Permission.BYPASS_GAME.hasPermission(winner, game.getGameID())){
                 GameBox.econ.depositPlayer(winner, rule.getMoneyToWin());
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON_MONEY.replaceAll("%reward%", rule.getMoneyToWin()+"")));
             } else {
