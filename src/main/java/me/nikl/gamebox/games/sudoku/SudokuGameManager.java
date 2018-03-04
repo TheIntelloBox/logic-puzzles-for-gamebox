@@ -2,8 +2,8 @@ package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.GameBoxSettings;
-import me.nikl.gamebox.games.GameRule;
-import me.nikl.gamebox.games.exceptions.GameStartException;
+import me.nikl.gamebox.game.rules.GameRule;
+import me.nikl.gamebox.game.exceptions.GameStartException;
 import me.nikl.gamebox.utility.ItemStackUtility;
 import me.nikl.gamebox.utility.Permission;
 import me.nikl.gamebox.utility.StringUtility;
@@ -34,7 +34,7 @@ import java.util.logging.Level;
  *
  * Sudoku GameManager
  */
-public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
+public class SudokuGameManager implements me.nikl.gamebox.game.manager.GameManager {
     private Sudoku game;
     private Map<UUID, SudokuGame> games = new HashMap<>();
     private SudokuLanguage lang;

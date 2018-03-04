@@ -1,7 +1,7 @@
 package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.data.toplist.SaveType;
-import me.nikl.gamebox.games.GameRuleRewards;
+import me.nikl.gamebox.game.rules.GameRuleRewards;
 
 /**
  * Created by Niklas

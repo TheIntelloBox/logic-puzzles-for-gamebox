@@ -1,9 +1,8 @@
 package me.nikl.gamebox.games.threeinarow;
 
-import me.nikl.gamebox.data.toplist.SaveType;
-import me.nikl.gamebox.games.GameManager;
-import me.nikl.gamebox.games.GameRule;
-import me.nikl.gamebox.games.exceptions.GameStartException;
+import me.nikl.gamebox.game.exceptions.GameStartException;
+import me.nikl.gamebox.game.manager.GameManager;
+import me.nikl.gamebox.game.rules.GameRule;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;

@@ -1,12 +1,13 @@
 package me.nikl.gamebox.games.sudoku;
 
 import me.nikl.gamebox.GameBox;
-import me.nikl.gamebox.games.*;
+import me.nikl.gamebox.game.GameSettings;
+import me.nikl.gamebox.games.LogicPuzzles;
 
 /**
  * Created by nikl on 23.02.18.
  */
-public class Sudoku extends me.nikl.gamebox.games.Game {
+public class Sudoku extends me.nikl.gamebox.game.Game {
     public Sudoku(GameBox gameBox) {
         super(gameBox, LogicPuzzles.SUDOKU);
     }

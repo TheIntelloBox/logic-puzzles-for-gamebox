@@ -1,6 +1,6 @@
 package me.nikl.gamebox.games.sudoku;
 
-import me.nikl.gamebox.games.GameLanguage;
+import me.nikl.gamebox.game.GameLanguage;
 
 import java.util.List;
 
@@ -12,10 +12,9 @@ public class SudokuLanguage extends GameLanguage{
 	public String GAME_TITLE, GAME_TITLE_WON, GAME_PAYED, GAME_NOT_ENOUGH_MONEY, GAME_WON_MONEY, GAME_WON;
 	public String RESTART_NAME;
 
-	public SudokuLanguage(me.nikl.gamebox.games.Game game) {
+	public SudokuLanguage(me.nikl.gamebox.game.Game game) {
 		super(game);
 	}
-
 
 	@Override
 	protected void loadMessages() {
