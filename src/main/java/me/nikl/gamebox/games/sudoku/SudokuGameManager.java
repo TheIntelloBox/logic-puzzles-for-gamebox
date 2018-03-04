@@ -162,7 +162,7 @@ public class SudokuGameManager implements me.nikl.gamebox.games.GameManager {
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " I/O Exception while looking for a puzzle!");
             throw new GameStartException(GameStartException.Reason.ERROR);
         }
-        if (!game.payIfNecessary(players[0], rule.getMoneyToPay())) {
+        if (!game.payIfNecessary(players[0], rule.getCost())) {
             throw new GameStartException(GameStartException.Reason.NOT_ENOUGH_MONEY);
         }
         games.put(players[0].getUniqueId(), new SudokuGame(rule, game, players[0], playSounds, puzzle, cover, tip, number));
