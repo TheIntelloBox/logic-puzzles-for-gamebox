@@ -200,21 +200,15 @@ public class SudokuGameManager implements me.nikl.gamebox.game.manager.GameManag
     // ToDo move to abstract game class
     public void onGameEnd(Player winner, String key) {
         SudokuGameRules rule = gameTypes.get(key);
+        game.onGameWon(winner, rule, 1.);
         if(GameBoxSettings.econEnabled){
             if(!Permission.BYPASS_GAME.hasPermission(winner, game.getGameID())){
-                GameBox.econ.depositPlayer(winner, rule.getMoneyToWin());
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON_MONEY.replaceAll("%reward%", rule.getMoneyToWin()+"")));
             } else {
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON));
             }
         } else {
             winner.sendMessage((lang.PREFIX + lang.GAME_WON));
-        }
-        if(rule.isSaveStats()){
-            game.getGameBox().getDataBase().addStatistics(winner.getUniqueId(), game.getGameID(), key, 1., rule.getSaveType());
-        }
-        if(rule.getTokenToWin() > 0){
-            game.getGameBox().wonTokens(winner.getUniqueId(), rule.getTokenToWin(), game.getGameID());
         }
     }
 }
