@@ -55,7 +55,7 @@ gameBox:
       - "&cThreeInARow &1Top List"
       slot: 31
       # inventory title of the top list (%player% and %game%)
-      inventoryTitle: '        &3Three In A Row&r Top List'
+      inventoryTitle: '   &3Three In A Row&r Top List'
       # Lore of the skulls in the inventory. Use %rank% for the rank and %score% for the highest score of the player
       skullLore:
       - ''

@@ -14,7 +14,6 @@ game:
     won: "&9Sudoku              &2You won!"
   won: " &2You solved a &6Sudoku&2 puzzle."
 
-
 prefix: "[&3Sudoku&r]"
 name: "&1Sudoku&r"
 
@@ -25,16 +24,13 @@ restartButton:
   - "&6Double click to restart the puzzle"
 
 gameHelp:
-  - '&1&lSudoku is a logic game player on a 9x9 grid.'
-  - '&1&lThe grid is divided into 9 3x3 grids.'
+  - '&1&lSudoku is a logic game played on a 9x9 grid.'
+  - '&1&lThe grid is divided into nine 3x3 grids.'
   - ''
   - '&1&lTo win there have to be all numbers from 1 to 9'
   - '  &1&lin each row, column and 3x3 grid'
   - '&1&lAt the start of the game some numbers are set.'
   - '  &1&lWith logic you have to find the other numbers.'
-  - '  &1&lLeft-click raises the value by one,'
-  - '  &1&lright-click lowers it by one.'
   - ''
-  - '&1&lIf you messed up and would like to restart,'
-  - '  &1&lpress the restart button in your'
-  - '  &1&llower inventory.'
+  - '&1&lLeft-click raises the value by one.'
+  - '&1&lRight-click lowers the value by one.'
