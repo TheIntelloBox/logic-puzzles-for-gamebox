@@ -201,6 +201,7 @@ public class SudokuGameManager implements GameManager {
     // ToDo move to abstract game class
     public void onGameEnd(Player winner, String key) {
         SudokuGameRules rule = gameTypes.get(key);
+        game.onGameWon(winner, rule, 1.);
         if(GameBoxSettings.econEnabled){
             if(!Permission.BYPASS_GAME.hasPermission(winner, game.getGameID())){
                 winner.sendMessage((lang.PREFIX + lang.GAME_WON_MONEY.replaceAll("%reward%", rule.getMoneyToWin()+"")));

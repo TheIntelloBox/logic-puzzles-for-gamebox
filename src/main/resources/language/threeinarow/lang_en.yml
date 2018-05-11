@@ -14,24 +14,16 @@ game:
     won: "&9Three In A Row           &2You won!"
   won: " &2You solved a &6ThreeInARow&2 puzzle."
 
-
 prefix: "[&3ThreeInARow&r]"
 name: "&1ThreeInARow&r"
 
 gameHelp:
-  - '&1&lThree in a row is a logic game player on a 6x6 grid.'
+  - '&1&lThree in a row is a logic game played on a 6x6 grid.'
   - ''
   - '&1&lTo win there have to be three blue and'
   - '  &1&lthree white tiles in each row and column.'
   - '  &1&lIt is forbidden to have more then two tiles'
   - '  &1&lof the same color next to each other!'
   - ''
-  - '&1&lAt the start of the game some tiles are placed.'
   - '&1&lThere is only one possible solution that can be'
   - '  &1&lreached without guessing!'
-  - ''
-  - '&1&lThe game automatically counts the blue and white'
-  - '  &1&ltiles in each row and column for you. They are'
-  - '  &1&ldisplayed at the side of the grid. A green item'
-  - '  &1&lsignals that the corresponding row or column has'
-  - '  &1&lthe correct amount of blue and white tiles.'

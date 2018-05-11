@@ -17,7 +17,6 @@ public class SudokuLanguage extends GameLanguage {
 		super(game);
 	}
 
-
 	@Override
 	protected void loadMessages() {
 		RESTART_NAME = getString("restartButton.displayName");
