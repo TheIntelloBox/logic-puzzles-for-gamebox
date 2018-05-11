@@ -1,7 +1,7 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
-import me.nikl.gamebox.games.Game;
-import me.nikl.gamebox.games.GameLanguage;
+import me.nikl.gamebox.game.Game;
+import me.nikl.gamebox.game.GameLanguage;
 
 /**
  * Created by nikl on 25.02.18.

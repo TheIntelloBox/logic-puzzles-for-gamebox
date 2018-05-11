@@ -1,4 +1,4 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
 import me.nikl.gamebox.nms.NmsFactory;
 import me.nikl.gamebox.utility.Sound;

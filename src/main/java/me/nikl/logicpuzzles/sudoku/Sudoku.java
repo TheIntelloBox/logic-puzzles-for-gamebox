@@ -1,12 +1,13 @@
-package me.nikl.gamebox.games.sudoku;
+package me.nikl.logicpuzzles.sudoku;
 
 import me.nikl.gamebox.GameBox;
-import me.nikl.gamebox.games.*;
+import me.nikl.gamebox.game.*;
+import me.nikl.logicpuzzles.LogicPuzzles;
 
 /**
  * Created by nikl on 23.02.18.
  */
-public class Sudoku extends me.nikl.gamebox.games.Game {
+public class Sudoku extends me.nikl.gamebox.game.Game {
     public Sudoku(GameBox gameBox) {
         super(gameBox, LogicPuzzles.SUDOKU);
     }
@@ -26,6 +27,7 @@ public class Sudoku extends me.nikl.gamebox.games.Game {
         gameSettings.setGameType(GameSettings.GameType.SINGLE_PLAYER);
         gameSettings.setGameGuiSize(54);
         gameSettings.setHandleClicksOnHotbar(false);
+        gameSettings.setGameBoxMinimumVersion("2.1.0");
     }
 
     @Override

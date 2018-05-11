@@ -1,9 +1,8 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
-import me.nikl.gamebox.data.toplist.SaveType;
-import me.nikl.gamebox.games.GameManager;
-import me.nikl.gamebox.games.GameRule;
-import me.nikl.gamebox.games.exceptions.GameStartException;
+import me.nikl.gamebox.game.exceptions.GameStartException;
+import me.nikl.gamebox.game.manager.GameManager;
+import me.nikl.gamebox.game.rules.GameRule;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -106,7 +105,7 @@ public class TiarManager implements GameManager {
             game.warn(ChatColor.RED + " I/O Exception while looking for a puzzle!");
             throw new GameStartException(GameStartException.Reason.ERROR);
         }
-        if (!game.payIfNecessary(players[0], rule.getMoneyToPay())) {
+        if (!game.payIfNecessary(players[0], rule.getCost())) {
             throw new GameStartException(GameStartException.Reason.NOT_ENOUGH_MONEY);
         }
         games.put(players[0].getUniqueId(), new TiarGame(game, rule, players[0], puzzle));
