@@ -1,4 +1,4 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
 import me.nikl.gamebox.data.toplist.SaveType;
 import me.nikl.gamebox.game.rules.GameRuleRewards;

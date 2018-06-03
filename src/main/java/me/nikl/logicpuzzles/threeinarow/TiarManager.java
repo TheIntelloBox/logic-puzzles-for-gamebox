@@ -1,4 +1,4 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
 import me.nikl.gamebox.game.exceptions.GameStartException;
 import me.nikl.gamebox.game.manager.GameManager;

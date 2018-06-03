@@ -1,9 +1,8 @@
-package me.nikl.gamebox.games.sudoku;
+package me.nikl.logicpuzzles.sudoku;
 
 import me.nikl.gamebox.GameBoxSettings;
 import me.nikl.gamebox.nms.NmsFactory;
 import me.nikl.gamebox.utility.Sound;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;

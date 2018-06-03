@@ -1,4 +1,4 @@
-package me.nikl.gamebox.games.sudoku;
+package me.nikl.logicpuzzles.sudoku;
 
 import me.nikl.gamebox.data.toplist.SaveType;
 import me.nikl.gamebox.game.rules.GameRuleRewards;

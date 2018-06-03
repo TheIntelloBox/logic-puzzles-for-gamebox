@@ -1,9 +1,10 @@
-package me.nikl.gamebox.games.sudoku;
+package me.nikl.logicpuzzles.sudoku;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.GameBoxSettings;
-import me.nikl.gamebox.game.rules.GameRule;
+import me.nikl.gamebox.game.manager.GameManager;
 import me.nikl.gamebox.game.exceptions.GameStartException;
+import me.nikl.gamebox.game.rules.GameRule;
 import me.nikl.gamebox.utility.ItemStackUtility;
 import me.nikl.gamebox.utility.Permission;
 import me.nikl.gamebox.utility.StringUtility;
@@ -34,11 +35,11 @@ import java.util.logging.Level;
  *
  * Sudoku GameManager
  */
-public class SudokuGameManager implements me.nikl.gamebox.game.manager.GameManager {
+public class SudokuGameManager implements GameManager {
     private Sudoku game;
     private Map<UUID, SudokuGame> games = new HashMap<>();
     private SudokuLanguage lang;
-    private Map<String,SudokuGameRules> gameTypes = new HashMap<>();
+    private Map<String, SudokuGameRules> gameTypes = new HashMap<>();
     private RandomAccessFile raf;
     private Random random;
     private Map<Integer, ItemStack> cover = new HashMap<>();
@@ -210,5 +211,6 @@ public class SudokuGameManager implements me.nikl.gamebox.game.manager.GameManag
         } else {
             winner.sendMessage((lang.PREFIX + lang.GAME_WON));
         }
+        game.onGameWon(winner, rule, 1);
     }
 }

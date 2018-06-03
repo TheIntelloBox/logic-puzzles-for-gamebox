@@ -1,4 +1,4 @@
-package me.nikl.gamebox.games;
+package me.nikl.logicpuzzles;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.Module;
@@ -26,10 +26,10 @@ public class LogicPuzzles extends JavaPlugin{
         }
         gameBox = (GameBox) plugin;
         new Module(gameBox, SUDOKU
-                , "me.nikl.gamebox.games.sudoku.Sudoku"
+                , "me.nikl.logicpuzzles.sudoku.Sudoku"
                 , this, SUDOKU, "su");
         new Module(gameBox, THREE_IN_A_ROW
-                , "me.nikl.gamebox.games.threeinarow.ThreeInARow"
+                , "me.nikl.logicpuzzles.threeinarow.ThreeInARow"
                 , this, THREE_IN_A_ROW, "tiar");
     }
 }

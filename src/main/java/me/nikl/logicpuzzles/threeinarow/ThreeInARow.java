@@ -1,9 +1,9 @@
-package me.nikl.gamebox.games.threeinarow;
+package me.nikl.logicpuzzles.threeinarow;
 
 import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.game.Game;
 import me.nikl.gamebox.game.GameSettings;
-import me.nikl.gamebox.games.LogicPuzzles;
+import me.nikl.logicpuzzles.LogicPuzzles;
 import me.nikl.gamebox.utility.ItemStackUtility;
 import me.nikl.gamebox.utility.StringUtility;
 import org.bukkit.inventory.ItemStack;
@@ -67,6 +67,7 @@ public class ThreeInARow extends Game {
         gameSettings.setGameType(GameSettings.GameType.SINGLE_PLAYER);
         gameSettings.setHandleClicksOnHotbar(false);
         gameSettings.setGameGuiSize(54);
+        gameSettings.setGameBoxMinimumVersion("2.1.0");
     }
 
     @Override
