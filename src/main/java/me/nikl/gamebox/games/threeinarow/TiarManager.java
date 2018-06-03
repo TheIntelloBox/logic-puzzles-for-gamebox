@@ -26,6 +26,8 @@ import java.util.logging.Level;
  * Created by nikl on 25.02.18.
  */
 public class TiarManager implements GameManager {
+    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().length();
+    private static int LINE_LENGTH;
     private ThreeInARow game;
     private Map<UUID, TiarGame> games = new HashMap<>();
     private TiarLanguage lang;
@@ -50,10 +52,13 @@ public class TiarManager implements GameManager {
         }
         try {
             this.raf  = new RandomAccessFile(puzzle, "r");
+            LINE_LENGTH = raf.readLine().length() + NEW_LINE_CHAR_LENGTH;
         } catch (FileNotFoundException e) {
             game.warn(" Puzzles file is missing!");
             problemWhileLoading = true;
             return;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -90,7 +95,6 @@ public class TiarManager implements GameManager {
         // for time out reasons when someone messed with the puzzles file...
         int count = 0;
         try {
-            int lineLength = raf.readLine().toCharArray().length + String.format("%n").toCharArray().length;
             while (puzzle == null || !(puzzle.toCharArray().length >= 73)) {
                 if(count > 20){
                     game.warn(ChatColor.RED + " Unable to find a puzzle - Something is wrong with the puzzles file!");
@@ -98,7 +102,7 @@ public class TiarManager implements GameManager {
                     throw new GameStartException(GameStartException.Reason.ERROR);
                 }
                 count ++;
-                raf.seek(random.nextInt(378) * lineLength);
+                raf.seek(random.nextInt(378) * LINE_LENGTH);
                 puzzle = raf.readLine();
             }
         } catch (IOException e) {

@@ -1,3 +1,6 @@
+### v 2.0.1
+- change way to detect OS dependent length of lines in the puzzles files
+
 ### v 2.0.0
 
 - upgrade to GameBox v2
