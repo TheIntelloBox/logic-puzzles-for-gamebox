@@ -1,3 +1,7 @@
+### v 2.0.2
+- fix problems loading puzzles with some operating systems
+- bump GameBox dependency to 2.1.4
+
 ### v 2.0.1
 - change way to detect OS dependent length of lines in the puzzles files
 - push gamebox min version to 2.1.0

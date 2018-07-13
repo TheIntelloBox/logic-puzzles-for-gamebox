@@ -27,7 +27,7 @@ public class Sudoku extends me.nikl.gamebox.game.Game {
         gameSettings.setGameType(GameSettings.GameType.SINGLE_PLAYER);
         gameSettings.setGameGuiSize(54);
         gameSettings.setHandleClicksOnHotbar(false);
-        gameSettings.setGameBoxMinimumVersion("2.1.0");
+        gameSettings.setGameBoxMinimumVersion("2.1.4");
     }
 
     @Override

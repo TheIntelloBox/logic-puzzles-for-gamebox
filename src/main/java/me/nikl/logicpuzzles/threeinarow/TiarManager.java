@@ -3,6 +3,7 @@ package me.nikl.logicpuzzles.threeinarow;
 import me.nikl.gamebox.game.exceptions.GameStartException;
 import me.nikl.gamebox.game.manager.GameManager;
 import me.nikl.gamebox.game.rules.GameRule;
+import me.nikl.gamebox.utility.FileUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -26,7 +27,7 @@ import java.util.logging.Level;
  * Created by nikl on 25.02.18.
  */
 public class TiarManager implements GameManager {
-    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().getBytes().length;
+    private static int NEW_LINE_CHAR_LENGTH;
     private static int LINE_LENGTH;
     private ThreeInARow game;
     private Map<UUID, TiarGame> games = new HashMap<>();
@@ -52,6 +53,7 @@ public class TiarManager implements GameManager {
         }
         try {
             this.raf  = new RandomAccessFile(puzzle, "r");
+            NEW_LINE_CHAR_LENGTH = FileUtility.retrieveLineSeparator(puzzle).getBytes().length;
             LINE_LENGTH = raf.readLine().getBytes().length + NEW_LINE_CHAR_LENGTH;
         } catch (FileNotFoundException e) {
             game.warn(" Puzzles file is missing!");

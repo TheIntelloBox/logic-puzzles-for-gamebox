@@ -67,7 +67,7 @@ public class ThreeInARow extends Game {
         gameSettings.setGameType(GameSettings.GameType.SINGLE_PLAYER);
         gameSettings.setHandleClicksOnHotbar(false);
         gameSettings.setGameGuiSize(54);
-        gameSettings.setGameBoxMinimumVersion("2.1.0");
+        gameSettings.setGameBoxMinimumVersion("2.1.4");
     }
 
     @Override

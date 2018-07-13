@@ -4,6 +4,7 @@ import me.nikl.gamebox.GameBoxSettings;
 import me.nikl.gamebox.game.exceptions.GameStartException;
 import me.nikl.gamebox.game.manager.GameManager;
 import me.nikl.gamebox.game.rules.GameRule;
+import me.nikl.gamebox.utility.FileUtility;
 import me.nikl.gamebox.utility.ItemStackUtility;
 import me.nikl.gamebox.utility.Permission;
 import me.nikl.gamebox.utility.StringUtility;
@@ -35,7 +36,7 @@ import java.util.logging.Level;
  * Sudoku GameManager
  */
 public class SudokuGameManager implements GameManager {
-    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().getBytes().length;
+    private static int NEW_LINE_CHAR_LENGTH;
     private static int LINE_LENGTH;
     private Sudoku game;
     private Map<UUID, SudokuGame> games = new HashMap<>();
@@ -61,6 +62,7 @@ public class SudokuGameManager implements GameManager {
         }
         try {
             this.raf  = new RandomAccessFile(puzzle, "r");
+            NEW_LINE_CHAR_LENGTH = FileUtility.retrieveLineSeparator(puzzle).getBytes().length;
             LINE_LENGTH = raf.readLine().getBytes().length + NEW_LINE_CHAR_LENGTH;
         } catch (FileNotFoundException e) {
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Puzzles file is missing!");
