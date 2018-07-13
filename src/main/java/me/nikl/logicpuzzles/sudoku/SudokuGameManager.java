@@ -1,9 +1,8 @@
 package me.nikl.logicpuzzles.sudoku;
 
-import me.nikl.gamebox.GameBox;
 import me.nikl.gamebox.GameBoxSettings;
-import me.nikl.gamebox.game.manager.GameManager;
 import me.nikl.gamebox.game.exceptions.GameStartException;
+import me.nikl.gamebox.game.manager.GameManager;
 import me.nikl.gamebox.game.rules.GameRule;
 import me.nikl.gamebox.utility.ItemStackUtility;
 import me.nikl.gamebox.utility.Permission;
@@ -36,6 +35,8 @@ import java.util.logging.Level;
  * Sudoku GameManager
  */
 public class SudokuGameManager implements GameManager {
+    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().getBytes().length;
+    private static int LINE_LENGTH;
     private Sudoku game;
     private Map<UUID, SudokuGame> games = new HashMap<>();
     private SudokuLanguage lang;
@@ -60,8 +61,13 @@ public class SudokuGameManager implements GameManager {
         }
         try {
             this.raf  = new RandomAccessFile(puzzle, "r");
+            LINE_LENGTH = raf.readLine().getBytes().length + NEW_LINE_CHAR_LENGTH;
         } catch (FileNotFoundException e) {
             Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Puzzles file is missing!");
+            problemWhileLoading = true;
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
             problemWhileLoading = true;
             return;
         }
@@ -148,7 +154,6 @@ public class SudokuGameManager implements GameManager {
         // for time out reasons when someone messed with the puzzles file...
         int count = 0;
         try {
-            int lineLength = raf.readLine().toCharArray().length + String.format("%n").toCharArray().length;
             while (puzzle == null || !(puzzle.toCharArray().length >= 81)) {
                 if(count > 20){
                     Bukkit.getConsoleSender().sendMessage(lang.PREFIX + ChatColor.RED + " Unable to find a puzzle - Something is wrong with the puzzles file!");
@@ -156,7 +161,7 @@ public class SudokuGameManager implements GameManager {
                     throw new GameStartException(GameStartException.Reason.ERROR);
                 }
                 count ++;
-                raf.seek(random.nextInt(2000) * lineLength);
+                raf.seek(random.nextInt(2000) * LINE_LENGTH);
                 puzzle = raf.readLine();
             }
         } catch (IOException e) {

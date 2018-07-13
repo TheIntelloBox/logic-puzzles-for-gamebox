@@ -26,7 +26,7 @@ import java.util.logging.Level;
  * Created by nikl on 25.02.18.
  */
 public class TiarManager implements GameManager {
-    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().length();
+    private static final int NEW_LINE_CHAR_LENGTH = System.lineSeparator().getBytes().length;
     private static int LINE_LENGTH;
     private ThreeInARow game;
     private Map<UUID, TiarGame> games = new HashMap<>();
@@ -44,7 +44,7 @@ public class TiarManager implements GameManager {
     }
 
     private void loadPuzzles() {
-        File puzzle = new File(game.getDataFolder().toString() + File.separatorChar + "puzzles.txt");
+        File puzzle = new File(game.getDataFolder().toString() + File.separatorChar + "puzzles.yml");
         if(!puzzle.exists()){
             game.warn(" Puzzles file is missing!");
             problemWhileLoading = true;
@@ -52,13 +52,15 @@ public class TiarManager implements GameManager {
         }
         try {
             this.raf  = new RandomAccessFile(puzzle, "r");
-            LINE_LENGTH = raf.readLine().length() + NEW_LINE_CHAR_LENGTH;
+            LINE_LENGTH = raf.readLine().getBytes().length + NEW_LINE_CHAR_LENGTH;
         } catch (FileNotFoundException e) {
             game.warn(" Puzzles file is missing!");
             problemWhileLoading = true;
             return;
         } catch (IOException e) {
             e.printStackTrace();
+            problemWhileLoading = true;
+            return;
         }
     }
 
